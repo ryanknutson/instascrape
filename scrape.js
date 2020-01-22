@@ -8,7 +8,7 @@ const mkdirp = require('mkdirp')
 const cliProgress = require('cli-progress')
 const argv = require('yargs').argv;
 
-const startup = async () => {
+const startup = async dir => {
   // no username error
   if (process.argv[2] === undefined) {
     console.log("enter a profile to scrape...")
@@ -23,6 +23,12 @@ const startup = async () => {
     console.log('(run \'node login\')')
     process.exit(0)
   })
+
+  if (argv.vo) return;
+
+  mkdirp(dir, (err) => {
+    if(err) reject(err)
+  });
 }
 
 // this uses puppeteer to scrape the instagram posts off a user's profile and return the results
@@ -81,7 +87,9 @@ let merge = () => new Promise((resolve, reject) => {
   .output('out.mp4')
   .outputOptions([
     '-c:v libx264',
-    '-pix_fmt yuv420p'
+    '-an',
+    '-pix_fmt rgb24',
+    '-preset slower'
   ])
   .on('end', e=>resolve())
   .run()
@@ -106,12 +114,8 @@ let cleanupvo = () => new Promise((resolve, reject) => {
 (async () => {
   let dir = `./downloads/${process.argv[2]}/${moment().format('YYYY-MM-DD_hh:mm')}`;
 
-  mkdirp(dir, (err) => {
-    if(err) reject(err)
-  });
-
   // run startup scripts
-  await startup();
+  await startup(dir);
 
   console.log('loading... please wait')
 
@@ -135,6 +139,8 @@ let cleanupvo = () => new Promise((resolve, reject) => {
 
   if (argv.vo) await cleanupvo();
   else await cleanup(dir);
+
+  console.log('done!')
 
   process.exit(0)
 })();

@@ -38,10 +38,12 @@ node login # saves to session.json
 ```
 
 ## To-Do
+- ADD ASYNC CATCH
 - nicer file paths
 - code cleanup
 - add audio to video
 - check if it works on Windows
+- output video codec
 
 ## License
 [ISC](https://opensource.org/licenses/ISC)
