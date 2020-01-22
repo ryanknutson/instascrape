@@ -40,6 +40,7 @@ node login # saves to session.json
 ## To-Do
 - cleanup code and separate into picture archive and video creator
 - ADD ASYNC CATCH
+- gzip/zip compress archive
 - nicer file paths
 - code cleanup
 - add audio to video
