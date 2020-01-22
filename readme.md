@@ -13,7 +13,7 @@ $ node login
 $ node scrape <user to scrape>
 
 # scrape a video as well
-$ node scrape <user to scrape>
+$ node scrape <user to scrape> -v
 ```
 
 ## Usage
@@ -38,6 +38,7 @@ node login # saves to session.json
 ```
 
 ## To-Do
+- cleanup code and separate into picture archive and video creator
 - ADD ASYNC CATCH
 - nicer file paths
 - code cleanup
